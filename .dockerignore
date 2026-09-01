@@ -1,0 +1,11 @@
+.git
+.gitignore
+*.md
+!README.md
+.env
+*.log
+tmp/
+tests/
+scripts/
+**/*_test.go
+.DS_Store

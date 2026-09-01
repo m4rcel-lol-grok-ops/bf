@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Byteforge — SVG Editor</title>
+<link rel="stylesheet" href="/static/css/base.css">
+<link rel="stylesheet" href="/static/css/layout.css">
+<link rel="stylesheet" href="/static/css/components.css">
+</head>
+<body>
+<div id="app">
+<aside class="sidebar" id="sidebar">
+  <div class="logo"><a href="/">Byteforge</a></div>
+  <nav>
+    <a href="/">Dashboard</a>
+    <a href="/converter">Converter</a>
+    <a href="/editor">Code Editor</a>
+    <a href="/svg" class="active">SVG Editor</a>
+    <a href="/pdf">PDF Editor</a>
+    <a href="/rss">RSS Reader</a>
+    <a href="/bytebeat">Bytebeat</a>
+    <a href="/settings">Settings</a>
+  </nav>
+</aside>
+<main class="content">
+  <header class="topbar">
+    <button class="menu-toggle" id="menu-toggle" aria-label="Menu">☰</button>
+    <h1>SVG Editor</h1>
+    <button class="cmd-btn" id="cmd-btn" title="Command palette (Ctrl+K)">⌘K</button>
+  </header>
+  <div class="page">
+    <div class="btn-row" style="margin-bottom:0.75rem">
+      <button data-svg-mode="visual" class="primary">Visual</button>
+      <button data-svg-mode="source">Source</button>
+      <button data-svg-tool="select">Select</button>
+      <button data-svg-tool="rect">Rect</button>
+      <button data-svg-tool="circle">Circle</button>
+      <button data-svg-tool="line">Line</button>
+      <button data-svg-tool="text">Text</button>
+      <button id="svg-delete">Delete</button>
+      <button id="svg-export">Export SVG</button>
+      <label class="badge">Import <input type="file" id="svg-import" accept=".svg,image/svg+xml" style="display:none"></label>
+    </div>
+    <div id="svg-panel-visual" class="svg-panel">
+      <svg id="svg-canvas" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:400px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)"></svg>
+    </div>
+    <div id="svg-panel-source" class="svg-panel hidden">
+      <textarea id="svg-source" style="width:100%;height:400px;font-family:var(--font-mono);background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1rem"></textarea>
+    </div>
+  </div>
+</main>
+</div>
+<div id="command-palette" class="cmd-palette hidden" role="dialog" aria-modal="true">
+  <input type="search" id="cmd-input" placeholder="Type a command…" autocomplete="off">
+  <ul id="cmd-list"></ul>
+</div>
+<script src="/static/js/app.js"></script>
+<script src="/static/js/command-palette.js"></script>
+<script src="/static/js/svg.js"></script>
+</body>
+</html>

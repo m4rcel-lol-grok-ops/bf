@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Byteforge — Settings</title>
+<link rel="stylesheet" href="/static/css/base.css">
+<link rel="stylesheet" href="/static/css/layout.css">
+<link rel="stylesheet" href="/static/css/components.css">
+</head>
+<body>
+<div id="app">
+<aside class="sidebar" id="sidebar">
+  <div class="logo"><a href="/">Byteforge</a></div>
+  <nav>
+    <a href="/">Dashboard</a>
+    <a href="/converter">Converter</a>
+    <a href="/editor">Code Editor</a>
+    <a href="/svg">SVG Editor</a>
+    <a href="/pdf">PDF Editor</a>
+    <a href="/rss">RSS Reader</a>
+    <a href="/bytebeat">Bytebeat</a>
+    <a href="/settings" class="active">Settings</a>
+  </nav>
+</aside>
+<main class="content">
+  <header class="topbar">
+    <button class="menu-toggle" id="menu-toggle" aria-label="Menu">☰</button>
+    <h1>Settings</h1>
+    <button class="cmd-btn" id="cmd-btn" title="Command palette (Ctrl+K)">⌘K</button>
+  </header>
+  <div class="page">
+    <form id="settings-form" class="card" style="max-width:480px">
+      <div class="form-group">
+        <label>Editor font size</label>
+        <input type="number" id="setting-editor_fontsize" name="editor_fontsize" value="14" min="10" max="24">
+      </div>
+      <div class="form-group">
+        <label><input type="checkbox" id="setting-editor_wordwrap" name="editor_wordwrap"> Word wrap</label>
+      </div>
+      <div class="form-group">
+        <label>Bytebeat default sample rate</label>
+        <select id="setting-bb_samplerate" name="bb_samplerate">
+          <option value="8000">8000</option>
+          <option value="22050">22050</option>
+          <option value="44100">44100</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>RSS refresh interval (minutes)</label>
+        <input type="number" id="setting-rss_interval" name="rss_interval" value="30" min="5" max="1440">
+      </div>
+      <button type="submit" class="primary">Save</button>
+      <p class="status" id="settings-status"></p>
+    </form>
+  </div>
+</main>
+</div>
+<div id="command-palette" class="cmd-palette hidden" role="dialog" aria-modal="true">
+  <input type="search" id="cmd-input" placeholder="Type a command…" autocomplete="off">
+  <ul id="cmd-list"></ul>
+</div>
+<script src="/static/js/app.js"></script>
+<script src="/static/js/command-palette.js"></script>
+<script src="/static/js/settings.js"></script>
+</body>
+</html>

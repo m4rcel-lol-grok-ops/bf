@@ -1,0 +1,112 @@
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+}
+.grid-2 { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+.grid-3 { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+
+.tool-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  transition: border-color 0.15s;
+}
+.tool-card:hover { border-color: var(--accent); }
+.tool-card h3 { margin-bottom: 0.35rem; font-size: 1rem; }
+.tool-card p { color: var(--text-muted); font-size: 0.9rem; }
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%;
+}
+
+.dropzone {
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  color: var(--text-muted);
+  transition: border-color 0.15s, background 0.15s;
+  cursor: pointer;
+}
+.dropzone.dragover {
+  border-color: var(--accent);
+  background: rgba(91, 156, 255, 0.06);
+}
+.dropzone input[type=file] { display: none; }
+
+.progress {
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 0.75rem;
+}
+.progress-bar {
+  height: 100%;
+  background: var(--accent);
+  width: 0%;
+  transition: width 0.2s;
+}
+
+.status {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+}
+.status.error { color: var(--danger); }
+.status.success { color: var(--success); }
+
+.badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  background: var(--surface-2);
+  color: var(--text-muted);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.table th, .table td {
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+.table th {
+  color: var(--text-muted);
+  font-weight: 500;
+  font-size: 0.85rem;
+}
+.table tr:hover td { background: var(--surface-2); }
+
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--text-muted);
+}

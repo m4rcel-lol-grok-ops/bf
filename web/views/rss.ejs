@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Byteforge — RSS Reader</title>
+<link rel="stylesheet" href="/static/css/base.css">
+<link rel="stylesheet" href="/static/css/layout.css">
+<link rel="stylesheet" href="/static/css/components.css">
+</head>
+<body>
+<div id="app">
+<aside class="sidebar" id="sidebar">
+  <div class="logo"><a href="/">Byteforge</a></div>
+  <nav>
+    <a href="/">Dashboard</a>
+    <a href="/converter">Converter</a>
+    <a href="/editor">Code Editor</a>
+    <a href="/svg">SVG Editor</a>
+    <a href="/pdf">PDF Editor</a>
+    <a href="/rss" class="active">RSS Reader</a>
+    <a href="/bytebeat">Bytebeat</a>
+    <a href="/settings">Settings</a>
+  </nav>
+</aside>
+<main class="content">
+  <header class="topbar">
+    <button class="menu-toggle" id="menu-toggle" aria-label="Menu">☰</button>
+    <h1>RSS Reader</h1>
+    <button class="cmd-btn" id="cmd-btn" title="Command palette (Ctrl+K)">⌘K</button>
+  </header>
+  <div class="page">
+    <form id="add-feed-form" class="btn-row" style="margin-bottom:1rem">
+      <input type="url" id="feed-url" placeholder="https://example.com/feed.xml" style="flex:1" required>
+      <button type="submit" class="primary">Add Feed</button>
+    </form>
+    <div class="grid" style="grid-template-columns: 280px 1fr; gap:1rem">
+      <div class="card">
+        <h3 style="margin-bottom:0.75rem">Feeds</h3>
+        <div id="feed-list"></div>
+      </div>
+      <div class="card">
+        <input type="search" id="item-search" placeholder="Search items…" style="width:100%;margin-bottom:0.75rem">
+        <div id="item-list"></div>
+      </div>
+    </div>
+  </div>
+</main>
+</div>
+<div id="command-palette" class="cmd-palette hidden" role="dialog" aria-modal="true">
+  <input type="search" id="cmd-input" placeholder="Type a command…" autocomplete="off">
+  <ul id="cmd-list"></ul>
+</div>
+<script src="/static/js/app.js"></script>
+<script src="/static/js/command-palette.js"></script>
+<script src="/static/js/rss.js"></script>
+</body>
+</html>

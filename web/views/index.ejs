@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Byteforge — Dashboard</title>
+<meta name="description" content="Byteforge — A universal toolkit for files, code, documents, feeds and sound.">
+<link rel="stylesheet" href="/static/css/base.css">
+<link rel="stylesheet" href="/static/css/layout.css">
+<link rel="stylesheet" href="/static/css/components.css">
+</head>
+<body>
+<div id="app">
+<aside class="sidebar" id="sidebar">
+  <div class="logo"><a href="/">Byteforge</a></div>
+  <nav>
+    <a href="/" class="active">Dashboard</a>
+    <a href="/converter">Converter</a>
+    <a href="/editor">Code Editor</a>
+    <a href="/svg">SVG Editor</a>
+    <a href="/pdf">PDF Editor</a>
+    <a href="/rss">RSS Reader</a>
+    <a href="/bytebeat">Bytebeat</a>
+    <a href="/settings">Settings</a>
+  </nav>
+</aside>
+<main class="content">
+  <header class="topbar">
+    <button class="menu-toggle" id="menu-toggle" aria-label="Menu">☰</button>
+    <h1>Dashboard</h1>
+    <button class="cmd-btn" id="cmd-btn" title="Command palette (Ctrl+K)">⌘K</button>
+  </header>
+  <div class="page">
+    <p style="color:var(--text-muted);margin-bottom:1.5rem">A universal toolkit for files, code, documents, feeds and sound.</p>
+    <div class="grid grid-2">
+      <a class="tool-card" href="/converter"><h3>File Converter</h3><p>Convert images, audio, video and text formats.</p></a>
+      <a class="tool-card" href="/editor"><h3>Code Editor</h3><p>Browser-based editor with syntax support for many languages.</p></a>
+      <a class="tool-card" href="/svg"><h3>SVG Editor</h3><p>Create and edit vector graphics visually or as source.</p></a>
+      <a class="tool-card" href="/pdf"><h3>PDF Editor</h3><p>View, reorder, rotate and manage PDF documents.</p></a>
+      <a class="tool-card" href="/rss"><h3>RSS Reader</h3><p>Subscribe to feeds, read articles, mark favorites.</p></a>
+      <a class="tool-card" href="/bytebeat"><h3>Bytebeat Composer</h3><p>Write mathematical audio expressions and play them live.</p></a>
+    </div>
+  </div>
+</main>
+</div>
+<div id="command-palette" class="cmd-palette hidden" role="dialog" aria-modal="true">
+  <input type="search" id="cmd-input" placeholder="Type a command…" autocomplete="off">
+  <ul id="cmd-list"></ul>
+</div>
+<script src="/static/js/app.js"></script>
+<script src="/static/js/command-palette.js"></script>
+</body>
+</html>
