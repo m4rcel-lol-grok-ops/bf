@@ -1,190 +1,261 @@
 function renderSvg(container) {
   container.innerHTML = `
-    <div class="h-full flex flex-col gap-4">
+    <div class="flex flex-col gap-4" style="min-height: calc(100vh - 3rem);">
       <header class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 shrink-0">
         <div>
           <h1 class="text-2xl font-bold tracking-tight mb-1">SVG Editor</h1>
           <p class="text-muted text-sm">Draw, edit, and export vector graphics.</p>
         </div>
-        
-        <div class="flex items-center gap-3 bg-surface border border-border p-1.5 rounded-full">
-          <div class="flex bg-bg rounded-full p-1" id="mode-toggle">
-            <button class="px-4 py-1 text-sm font-medium rounded-full bg-surface shadow-sm" data-mode="visual">Visual</button>
-            <button class="px-4 py-1 text-sm font-medium rounded-full text-muted hover:text-fg" data-mode="source">Source</button>
+        <div class="flex flex-wrap items-center gap-2">
+          <div class="flex bg-surface border border-border rounded-full p-1" id="mode-toggle">
+            <button type="button" class="mode-btn px-4 py-1.5 text-sm font-medium rounded-full bg-primary text-primary-fg" data-mode="visual">Visual</button>
+            <button type="button" class="mode-btn px-4 py-1.5 text-sm font-medium rounded-full text-muted hover:text-fg" data-mode="source">Source</button>
           </div>
-          
-          <div class="w-px h-5 bg-border"></div>
-
-          <button id="download-svg" class="flex items-center gap-2 bg-primary text-primary-fg text-sm font-medium px-4 py-1.5 rounded-full hover:opacity-90 transition-opacity">
+          <button type="button" id="import-svg" class="px-4 py-2 text-sm rounded-full border border-border bg-surface hover:bg-hover">Import</button>
+          <input type="file" id="svg-file" accept=".svg,image/svg+xml" class="hidden" />
+          <button type="button" id="download-svg" class="flex items-center gap-2 bg-primary text-primary-fg text-sm font-medium px-4 py-2 rounded-full hover:opacity-90">
             <i data-lucide="download" class="w-4 h-4"></i>
-            <span>Export</span>
+            Export
           </button>
         </div>
       </header>
 
-      <div class="flex-1 flex gap-4 overflow-hidden relative">
-        <!-- Toolbar -->
-        <div id="svg-toolbar" class="w-14 bg-surface border border-border rounded-2xl flex flex-col items-center py-4 gap-2 shrink-0">
-          <button class="tool-btn active p-2 rounded-xl text-fg bg-hover" data-tool="select" title="Select">
-            <i data-lucide="mouse-pointer-2" class="w-5 h-5"></i>
-          </button>
-          <button class="tool-btn p-2 rounded-xl text-muted hover:text-fg hover:bg-hover" data-tool="rect" title="Rectangle">
-            <i data-lucide="square" class="w-5 h-5"></i>
-          </button>
-          <button class="tool-btn p-2 rounded-xl text-muted hover:text-fg hover:bg-hover" data-tool="circle" title="Circle">
-            <i data-lucide="circle" class="w-5 h-5"></i>
-          </button>
+      <div class="flex flex-1 gap-4 min-h-0" style="min-height: 28rem;">
+        <div id="svg-toolbar" class="w-14 bg-surface border border-border rounded-2xl flex flex-col items-center py-3 gap-1 shrink-0">
+          <button type="button" class="tool-btn p-2.5 rounded-xl bg-hover text-fg" data-tool="select" title="Select"><i data-lucide="mouse-pointer-2" class="w-5 h-5"></i></button>
+          <button type="button" class="tool-btn p-2.5 rounded-xl text-muted hover:text-fg hover:bg-hover" data-tool="rect" title="Rectangle"><i data-lucide="square" class="w-5 h-5"></i></button>
+          <button type="button" class="tool-btn p-2.5 rounded-xl text-muted hover:text-fg hover:bg-hover" data-tool="circle" title="Circle"><i data-lucide="circle" class="w-5 h-5"></i></button>
+          <button type="button" class="tool-btn p-2.5 rounded-xl text-muted hover:text-fg hover:bg-hover" data-tool="line" title="Line"><i data-lucide="minus" class="w-5 h-5"></i></button>
+          <button type="button" class="tool-btn p-2.5 rounded-xl text-muted hover:text-fg hover:bg-hover" data-tool="text" title="Text"><i data-lucide="type" class="w-5 h-5"></i></button>
           <div class="w-8 h-px bg-border my-2"></div>
-          <button class="tool-btn p-2 rounded-xl text-muted hover:text-fg hover:bg-hover" data-tool="clear" title="Clear All">
-            <i data-lucide="trash-2" class="w-5 h-5"></i>
-          </button>
+          <button type="button" class="tool-btn p-2.5 rounded-xl text-muted hover:text-fg hover:bg-hover" data-tool="delete" title="Delete selected"><i data-lucide="trash-2" class="w-5 h-5"></i></button>
+          <button type="button" class="tool-btn p-2.5 rounded-xl text-muted hover:text-fg hover:bg-hover" data-tool="clear" title="Clear all"><i data-lucide="eraser" class="w-5 h-5"></i></button>
         </div>
 
-        <!-- Canvas Area -->
-        <div class="flex-1 bg-surface border border-border rounded-2xl relative overflow-hidden flex items-center justify-center bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9IiMzMzMiLz48L3N2Zz4=')]">
-          <svg id="svg-canvas" class="w-[80%] h-[80%] bg-white shadow-xl rounded" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
-            <!-- Initial content -->
-            <rect x="100" y="100" width="200" height="150" fill="#f43f5e" rx="12" />
-            <circle cx="500" cy="300" r="100" fill="#3b82f6" />
+        <div id="visual-panel" class="flex-1 bg-surface border border-border rounded-2xl relative overflow-hidden min-h-[28rem]">
+          <svg id="svg-canvas" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" class="w-full h-full cursor-crosshair" style="min-height:28rem;background-image:radial-gradient(circle, #333 1px, transparent 1px);background-size:16px 16px;background-color:#0a0a0a;">
           </svg>
         </div>
 
-        <!-- Source Area (Hidden initially) -->
-        <div id="source-panel" class="absolute inset-0 bg-surface border border-border rounded-2xl flex hidden z-10">
-          <textarea id="svg-source-textarea" class="w-full h-full bg-transparent text-fg p-6 outline-none resize-none font-mono text-sm leading-relaxed" spellcheck="false"></textarea>
+        <div id="source-panel" class="hidden flex-1 min-h-[28rem]">
+          <textarea id="svg-source" class="w-full h-full min-h-[28rem] bg-surface border border-border rounded-2xl p-4 font-mono text-sm text-fg outline-none resize-none" spellcheck="false"></textarea>
         </div>
       </div>
     </div>
   `;
-  const modeBtns = document.querySelectorAll("#mode-toggle button");
-  const sourcePanel = document.getElementById("source-panel");
+
   const svgCanvas = document.getElementById("svg-canvas");
-  const sourceTextarea = document.getElementById("svg-source-textarea");
-  const toolbar = document.getElementById("svg-toolbar");
-  modeBtns.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      const target = e.target;
-      const mode = target.getAttribute("data-mode");
-      modeBtns.forEach((b) => {
-        b.classList.remove("bg-surface", "shadow-sm", "text-fg");
-        b.classList.add("text-muted");
-      });
-      target.classList.add("bg-surface", "shadow-sm", "text-fg");
-      target.classList.remove("text-muted");
-      if (mode === "source") {
-        sourcePanel?.classList.remove("hidden");
-        toolbar?.classList.add("opacity-50", "pointer-events-none");
-        const serializer = new XMLSerializer();
-        let source = serializer.serializeToString(svgCanvas);
-        source = source.replace(/><\/rect>/g, " />").replace(/><\/circle>/g, " />");
-        sourceTextarea.value = source;
-      } else {
-        sourcePanel?.classList.add("hidden");
-        toolbar?.classList.remove("opacity-50", "pointer-events-none");
-        if (sourceTextarea.value) {
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(sourceTextarea.value, "image/svg+xml");
-          const newSvg = doc.querySelector("svg");
-          if (newSvg) {
-            svgCanvas.innerHTML = newSvg.innerHTML;
-            if (newSvg.getAttribute("viewBox")) {
-              svgCanvas.setAttribute("viewBox", newSvg.getAttribute("viewBox"));
-            }
-          }
-        }
-      }
-    });
-  });
+  const sourcePanel = document.getElementById("source-panel");
+  const visualPanel = document.getElementById("visual-panel");
+  const sourceEl = document.getElementById("svg-source");
+  const ns = "http://www.w3.org/2000/svg";
+
   let activeTool = "select";
-  const toolBtns = document.querySelectorAll(".tool-btn");
-  toolBtns.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      const target = e.currentTarget;
-      const tool = target.getAttribute("data-tool");
+  let mode = "visual";
+  let isDrawing = false;
+  let startX = 0, startY = 0;
+  let currentElement = null;
+  let selected = null;
+
+  function toSvgPoint(e) {
+    const pt = svgCanvas.createSVGPoint();
+    pt.x = e.clientX;
+    pt.y = e.clientY;
+    const ctm = svgCanvas.getScreenCTM();
+    if (!ctm) return { x: 0, y: 0 };
+    const p = pt.matrixTransform(ctm.inverse());
+    return { x: p.x, y: p.y };
+  }
+
+  function updateSource() {
+    if (sourceEl) sourceEl.value = new XMLSerializer().serializeToString(svgCanvas);
+  }
+
+  function setTool(tool) {
+    activeTool = tool;
+    document.querySelectorAll(".tool-btn").forEach((b) => {
+      const on = b.dataset.tool === tool;
+      b.classList.toggle("bg-hover", on);
+      b.classList.toggle("text-fg", on);
+      b.classList.toggle("text-muted", !on);
+    });
+  }
+
+  document.querySelectorAll(".tool-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const tool = btn.dataset.tool;
       if (tool === "clear") {
-        svgCanvas.innerHTML = "";
+        while (svgCanvas.firstChild) svgCanvas.removeChild(svgCanvas.firstChild);
+        selected = null;
+        updateSource();
         return;
       }
-      toolBtns.forEach((b) => {
-        b.classList.remove("active", "bg-hover", "text-fg");
-        b.classList.add("text-muted");
-      });
-      target.classList.add("active", "bg-hover", "text-fg");
-      target.classList.remove("text-muted");
-      activeTool = tool || "select";
+      if (tool === "delete") {
+        if (selected && selected.parentNode === svgCanvas) {
+          svgCanvas.removeChild(selected);
+          selected = null;
+          updateSource();
+        }
+        return;
+      }
+      setTool(tool);
     });
   });
-  let isDrawing = false;
-  let currentElement = null;
-  let startX = 0;
-  let startY = 0;
-  svgCanvas.addEventListener("mousedown", (e) => {
-    if (activeTool === "select") return;
-    isDrawing = true;
-    const pt = svgCanvas.createSVGPoint();
-    pt.x = e.clientX;
-    pt.y = e.clientY;
-    const svgP = pt.matrixTransform(svgCanvas.getScreenCTM()?.inverse());
-    startX = svgP.x;
-    startY = svgP.y;
-    if (activeTool === "rect") {
-      currentElement = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-      currentElement.setAttribute("x", startX.toString());
-      currentElement.setAttribute("y", startY.toString());
-      currentElement.setAttribute("width", "0");
-      currentElement.setAttribute("height", "0");
-      currentElement.setAttribute("fill", "transparent");
-      currentElement.setAttribute("stroke", "currentColor");
-      currentElement.setAttribute("stroke-width", "4");
-      currentElement.setAttribute("rx", "8");
-      svgCanvas.appendChild(currentElement);
-    } else if (activeTool === "circle") {
-      currentElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-      currentElement.setAttribute("cx", startX.toString());
-      currentElement.setAttribute("cy", startY.toString());
-      currentElement.setAttribute("r", "0");
-      currentElement.setAttribute("fill", "transparent");
-      currentElement.setAttribute("stroke", "currentColor");
-      currentElement.setAttribute("stroke-width", "4");
-      svgCanvas.appendChild(currentElement);
-    }
+
+  document.querySelectorAll(".mode-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      mode = btn.dataset.mode;
+      document.querySelectorAll(".mode-btn").forEach((b) => {
+        const on = b.dataset.mode === mode;
+        b.classList.toggle("bg-primary", on);
+        b.classList.toggle("text-primary-fg", on);
+        b.classList.toggle("text-muted", !on);
+      });
+      if (mode === "source") {
+        updateSource();
+        visualPanel.classList.add("hidden");
+        sourcePanel.classList.remove("hidden");
+      } else {
+        // apply source back if edited
+        try {
+          const parsed = new DOMParser().parseFromString(sourceEl.value, "image/svg+xml");
+          const svg = parsed.querySelector("svg");
+          if (svg) {
+            while (svgCanvas.firstChild) svgCanvas.removeChild(svgCanvas.firstChild);
+            Array.from(svg.children).forEach((c) => svgCanvas.appendChild(document.importNode(c, true)));
+          }
+        } catch (_) {}
+        sourcePanel.classList.add("hidden");
+        visualPanel.classList.remove("hidden");
+      }
+    });
   });
+
+  svgCanvas.addEventListener("mousedown", (e) => {
+    if (mode !== "visual") return;
+    const p = toSvgPoint(e);
+    startX = p.x;
+    startY = p.y;
+
+    if (activeTool === "select") {
+      const t = e.target;
+      if (t && t !== svgCanvas) {
+        selected = t;
+        Array.from(svgCanvas.children).forEach((c) => c.removeAttribute("stroke-dasharray"));
+        selected.setAttribute("stroke-dasharray", "4 2");
+      } else {
+        selected = null;
+        Array.from(svgCanvas.children).forEach((c) => c.removeAttribute("stroke-dasharray"));
+      }
+      return;
+    }
+
+    if (activeTool === "text") {
+      const text = prompt("Text:", "Hello");
+      if (!text) return;
+      const el = document.createElementNS(ns, "text");
+      el.setAttribute("x", startX);
+      el.setAttribute("y", startY);
+      el.setAttribute("fill", "#e5e5e5");
+      el.setAttribute("font-size", "20");
+      el.textContent = text;
+      svgCanvas.appendChild(el);
+      updateSource();
+      return;
+    }
+
+    isDrawing = true;
+    if (activeTool === "rect") {
+      currentElement = document.createElementNS(ns, "rect");
+      currentElement.setAttribute("x", startX);
+      currentElement.setAttribute("y", startY);
+      currentElement.setAttribute("width", "1");
+      currentElement.setAttribute("height", "1");
+      currentElement.setAttribute("fill", "rgba(255,255,255,0.08)");
+      currentElement.setAttribute("stroke", "#e5e5e5");
+      currentElement.setAttribute("stroke-width", "2");
+    } else if (activeTool === "circle") {
+      currentElement = document.createElementNS(ns, "circle");
+      currentElement.setAttribute("cx", startX);
+      currentElement.setAttribute("cy", startY);
+      currentElement.setAttribute("r", "1");
+      currentElement.setAttribute("fill", "rgba(255,255,255,0.08)");
+      currentElement.setAttribute("stroke", "#e5e5e5");
+      currentElement.setAttribute("stroke-width", "2");
+    } else if (activeTool === "line") {
+      currentElement = document.createElementNS(ns, "line");
+      currentElement.setAttribute("x1", startX);
+      currentElement.setAttribute("y1", startY);
+      currentElement.setAttribute("x2", startX);
+      currentElement.setAttribute("y2", startY);
+      currentElement.setAttribute("stroke", "#e5e5e5");
+      currentElement.setAttribute("stroke-width", "2");
+    }
+    if (currentElement) svgCanvas.appendChild(currentElement);
+  });
+
   svgCanvas.addEventListener("mousemove", (e) => {
     if (!isDrawing || !currentElement) return;
-    const pt = svgCanvas.createSVGPoint();
-    pt.x = e.clientX;
-    pt.y = e.clientY;
-    const svgP = pt.matrixTransform(svgCanvas.getScreenCTM()?.inverse());
+    const p = toSvgPoint(e);
     if (activeTool === "rect") {
-      const w = Math.abs(svgP.x - startX);
-      const h = Math.abs(svgP.y - startY);
-      const x = Math.min(svgP.x, startX);
-      const y = Math.min(svgP.y, startY);
-      currentElement.setAttribute("x", x.toString());
-      currentElement.setAttribute("y", y.toString());
-      currentElement.setAttribute("width", w.toString());
-      currentElement.setAttribute("height", h.toString());
+      const w = Math.abs(p.x - startX);
+      const h = Math.abs(p.y - startY);
+      currentElement.setAttribute("x", Math.min(p.x, startX));
+      currentElement.setAttribute("y", Math.min(p.y, startY));
+      currentElement.setAttribute("width", Math.max(1, w));
+      currentElement.setAttribute("height", Math.max(1, h));
     } else if (activeTool === "circle") {
-      const r = Math.sqrt(Math.pow(svgP.x - startX, 2) + Math.pow(svgP.y - startY, 2));
-      currentElement.setAttribute("r", r.toString());
+      const r = Math.hypot(p.x - startX, p.y - startY);
+      currentElement.setAttribute("r", Math.max(1, r));
+    } else if (activeTool === "line") {
+      currentElement.setAttribute("x2", p.x);
+      currentElement.setAttribute("y2", p.y);
     }
   });
+
   svgCanvas.addEventListener("mouseup", () => {
     isDrawing = false;
     currentElement = null;
+    updateSource();
   });
+
   document.getElementById("download-svg")?.addEventListener("click", () => {
-    const serializer = new XMLSerializer();
-    let source = serializer.serializeToString(svgCanvas);
-    const blob = new Blob([source], { type: "image/svg+xml" });
-    const url = URL.createObjectURL(blob);
+    updateSource();
+    const blob = new Blob([new XMLSerializer().serializeToString(svgCanvas)], { type: "image/svg+xml" });
     const a = document.createElement("a");
-    a.href = url;
+    a.href = URL.createObjectURL(blob);
     a.download = "graphic.svg";
     a.click();
-    URL.revokeObjectURL(url);
+    URL.revokeObjectURL(a.href);
   });
+
+  document.getElementById("import-svg")?.addEventListener("click", () => {
+    document.getElementById("svg-file")?.click();
+  });
+  document.getElementById("svg-file")?.addEventListener("change", (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const parsed = new DOMParser().parseFromString(String(reader.result), "image/svg+xml");
+        const svg = parsed.querySelector("svg");
+        if (!svg) return;
+        while (svgCanvas.firstChild) svgCanvas.removeChild(svgCanvas.firstChild);
+        Array.from(svg.children).forEach((c) => {
+          // basic sanitize: only geometry-ish nodes
+          const name = c.tagName?.toLowerCase();
+          if (["rect", "circle", "ellipse", "line", "path", "polygon", "polyline", "text", "g"].includes(name)) {
+            svgCanvas.appendChild(document.importNode(c, true));
+          }
+        });
+        updateSource();
+      } catch (_) {}
+    };
+    reader.readAsText(file);
+  });
+
+  updateSource();
 }
-export {
-  renderSvg
-};
+
+export { renderSvg };

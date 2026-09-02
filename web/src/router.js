@@ -6,6 +6,7 @@ import { renderSvg } from "./pages/svg.js";
 import { renderPdf } from "./pages/pdf.js";
 import { renderRss } from "./pages/rss.js";
 import { renderBytebeat } from "./pages/bytebeat.js";
+import { renderSettings } from "./pages/settings.js";
 import { renderPlaceholder } from "./pages/placeholder.js";
 
 const routes = [
@@ -16,7 +17,7 @@ const routes = [
   { path: "/pdf", id: "pdf", icon: "file-text", label: "PDF", render: renderPdf },
   { path: "/rss", id: "rss", icon: "rss", label: "RSS", render: renderRss },
   { path: "/bytebeat", id: "beat", icon: "music", label: "Beat", render: renderBytebeat },
-  { path: "/settings", id: "settings", icon: "settings", label: "Settings", render: () => renderPlaceholder("Settings") },
+  { path: "/settings", id: "settings", icon: "settings", label: "Settings", render: renderSettings },
 ];
 
 function createRouter() {
