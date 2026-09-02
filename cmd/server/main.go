@@ -53,23 +53,23 @@ func main() {
 	cleanupWorker.Start()
 	defer cleanupWorker.Stop()
 
-	viewsDir := "web/views"
-	if _, err := os.Stat(viewsDir); os.IsNotExist(err) {
+	webDir := "web"
+	if _, err := os.Stat(webDir); os.IsNotExist(err) {
 		// Try relative to executable or common locations
 		candidates := []string{
-			filepath.Join(".", "web", "views"),
-			"/app/web/views",
-			filepath.Join(filepath.Dir(os.Args[0]), "web", "views"),
+			filepath.Join(".", "web"),
+			"/app/web",
+			filepath.Join(filepath.Dir(os.Args[0]), "web"),
 		}
 		for _, c := range candidates {
 			if _, err := os.Stat(c); err == nil {
-				viewsDir = c
+				webDir = c
 				break
 			}
 		}
 	}
 
-	srv, err := api.NewServer(cfg, db, jobMgr, downloads, logger, viewsDir)
+	srv, err := api.NewServer(cfg, db, jobMgr, downloads, logger, webDir)
 	if err != nil {
 		logger.Error("api server", "error", err)
 		os.Exit(1)

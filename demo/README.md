@@ -1,26 +1,14 @@
 # Byteforge demo screenshots
 
-Captured from a local self-hosted instance (`http://127.0.0.1:18527`).
+Captured from a local self-hosted instance with the SPA frontend (dark default).
 
-## Desktop (1440×900)
-
-| Page | File |
+| File | Page |
 |------|------|
-| Dashboard | `dashboard.png` |
-| File Converter | `converter.png` |
-| Code Editor | `editor.png` |
-| SVG Editor | `svg.png` |
-| PDF Editor | `pdf.png` |
-| RSS Reader | `rss.png` |
-| Bytebeat Composer | `bytebeat.png` |
-| Settings | `settings.png` |
-
-## Mobile (390×844)
-
-| Page | File |
-|------|------|
-| Dashboard | `dashboard-mobile.png` |
-| Converter | `converter-mobile.png` |
-| Bytebeat | `bytebeat-mobile.png` |
-
-Runtime data from the demo session was removed after capture.
+| `screenshit1.png` | Home |
+| `screenshit2.png` | Converter |
+| `screenshit3.png` | Code Editor |
+| `screenshit4.png` | SVG Editor |
+| `screenshit5.png` | PDF Editor |
+| `screenshit6.png` | RSS Reader |
+| `screenshit7.png` | Bytebeat |
+| `screenshit8.png` | Settings |
