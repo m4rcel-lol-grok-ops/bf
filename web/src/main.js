@@ -9,6 +9,7 @@ function refreshIcons() {
     nameAttr: "data-lucide"
   });
 }
+window.refreshIcons = refreshIcons;
 document.addEventListener("DOMContentLoaded", () => {
   initTheme();
   refreshIcons();
