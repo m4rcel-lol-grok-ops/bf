@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/byteforge/byteforge/internal/jobs"
+	"github.com/m4rcel-lol-grok-ops/bf/internal/jobs"
 )
 
 func Register(m *jobs.Manager) {

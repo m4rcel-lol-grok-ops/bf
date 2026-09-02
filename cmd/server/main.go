@@ -10,13 +10,13 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/byteforge/byteforge/internal/api"
-	"github.com/byteforge/byteforge/internal/cleanup"
-	"github.com/byteforge/byteforge/internal/config"
-	"github.com/byteforge/byteforge/internal/converter"
-	"github.com/byteforge/byteforge/internal/jobs"
-	"github.com/byteforge/byteforge/internal/security"
-	"github.com/byteforge/byteforge/internal/storage"
+	"github.com/m4rcel-lol-grok-ops/bf/internal/api"
+	"github.com/m4rcel-lol-grok-ops/bf/internal/cleanup"
+	"github.com/m4rcel-lol-grok-ops/bf/internal/config"
+	"github.com/m4rcel-lol-grok-ops/bf/internal/converter"
+	"github.com/m4rcel-lol-grok-ops/bf/internal/jobs"
+	"github.com/m4rcel-lol-grok-ops/bf/internal/security"
+	"github.com/m4rcel-lol-grok-ops/bf/internal/storage"
 )
 
 func main() {

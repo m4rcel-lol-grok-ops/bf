@@ -1,4 +1,4 @@
-module github.com/byteforge/byteforge
+module github.com/m4rcel-lol-grok-ops/bf
 
 go 1.22.2
 

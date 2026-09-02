@@ -8,8 +8,8 @@ import (
 	"path/filepath"
 	"strconv"
 
-	"github.com/byteforge/byteforge/internal/rss"
-	"github.com/byteforge/byteforge/internal/security"
+	"github.com/m4rcel-lol-grok-ops/bf/internal/rss"
+	"github.com/m4rcel-lol-grok-ops/bf/internal/security"
 )
 
 func (s *Server) handleRSSListFeeds(w http.ResponseWriter, r *http.Request) {

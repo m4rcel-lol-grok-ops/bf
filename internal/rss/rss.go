@@ -12,8 +12,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/byteforge/byteforge/internal/security"
-	"github.com/byteforge/byteforge/internal/storage"
+	"github.com/m4rcel-lol-grok-ops/bf/internal/security"
+	"github.com/m4rcel-lol-grok-ops/bf/internal/storage"
 )
 
 type Feed struct {
