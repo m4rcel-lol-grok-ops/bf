@@ -1,7 +1,7 @@
 function renderEditor(container) {
   const savedSize = localStorage.getItem("byteforge-editor-size") || "16";
   container.innerHTML = `
-    <div class="h-full flex flex-col gap-4">
+    <div class="flex flex-col gap-4" style="min-height: calc(100vh - 3rem);">
       <header class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 shrink-0">
         <div>
           <h1 class="text-2xl font-bold tracking-tight mb-1">Code Editor</h1>
@@ -40,9 +40,8 @@ function renderEditor(container) {
         </div>
       </header>
 
-      <div class="flex-1 bg-surface border border-border rounded-2xl overflow-hidden relative">
-        <!-- Line numbers could be added here, keeping it simple for now -->
-        <textarea id="code-textarea" class="w-full h-full bg-transparent text-fg p-6 outline-none resize-none font-mono leading-relaxed" spellcheck="false" style="font-size: ${savedSize}px;"></textarea>
+      <div class="flex-1 bg-surface border border-border rounded-2xl overflow-hidden relative" style="min-height: 28rem;">
+        <textarea id="code-textarea" class="absolute inset-0 w-full h-full bg-transparent text-fg p-6 outline-none resize-none font-mono leading-relaxed" spellcheck="false" style="font-size: ${savedSize}px;" placeholder="// Write code here..."></textarea>
       </div>
     </div>
   `;
@@ -52,6 +51,28 @@ function renderEditor(container) {
   const fontDisplay = document.getElementById("font-display");
   const downloadBtn = document.getElementById("download-code");
   const langSelect = document.getElementById("lang-select");
+
+  const defaults = {
+    js: '// Byteforge\nconsole.log("Hello from Byteforge");\n',
+    ts: '// Byteforge\nconst msg: string = "Hello from Byteforge";\nconsole.log(msg);\n',
+    python: '# Byteforge\nprint("Hello from Byteforge")\n',
+    html: '<!DOCTYPE html>\n<html>\n<head><title>Byteforge</title></head>\n<body>\n  <h1>Hello from Byteforge</h1>\n</body>\n</html>\n',
+    css: '/* Byteforge */\nbody { font-family: system-ui; background: #0a0a0a; color: #e5e5e5; }\n',
+    json: '{\n  "name": "byteforge",\n  "ok": true\n}\n',
+    md: '# Byteforge\n\nA universal toolkit for files, code, documents, feeds and sound.\n'
+  };
+  const savedCode = localStorage.getItem("byteforge-editor-code");
+  if (savedCode) textarea.value = savedCode;
+  else textarea.value = defaults.js;
+  langSelect?.addEventListener("change", () => {
+    if (!textarea.value.trim() || Object.values(defaults).includes(textarea.value)) {
+      textarea.value = defaults[langSelect.value] || "";
+    }
+  });
+  textarea.addEventListener("input", () => {
+    localStorage.setItem("byteforge-editor-code", textarea.value);
+  });
+
   let currentSize = parseInt(savedSize, 10);
   const updateFontSize = (newSize) => {
     if (newSize < 10 || newSize > 32) return;
