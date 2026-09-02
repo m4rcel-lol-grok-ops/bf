@@ -35,31 +35,37 @@
 
   function filter(q) {
     const lower = q.toLowerCase();
-    filtered = commands.filter((c) => c.name.toLowerCase().includes(lower));
+    filtered = commands.filter(function (c) {
+      return c.name.toLowerCase().includes(lower);
+    });
     activeIdx = 0;
     render();
   }
 
   function render() {
     list.innerHTML = '';
-    filtered.forEach((c, i) => {
+    filtered.forEach(function (c, i) {
       const li = document.createElement('li');
       li.textContent = c.name;
       if (i === activeIdx) li.classList.add('active');
-      li.addEventListener('click', () => {
-        location.href = c.path;
+      li.addEventListener('click', function () {
+        go(c.path);
       });
       list.appendChild(li);
     });
   }
 
-  function go() {
-    if (filtered[activeIdx]) {
-      location.href = filtered[activeIdx].path;
-    }
+  function go(path) {
+    close();
+    if (window.byteforgeNavigate) window.byteforgeNavigate(path);
+    else location.href = path;
   }
 
-  document.addEventListener('keydown', (e) => {
+  function goActive() {
+    if (filtered[activeIdx]) go(filtered[activeIdx].path);
+  }
+
+  document.addEventListener('keydown', function (e) {
     if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
       e.preventDefault();
       if (palette.classList.contains('hidden')) open();
@@ -79,16 +85,17 @@
         render();
       } else if (e.key === 'Enter') {
         e.preventDefault();
-        go();
+        goActive();
       }
     }
   });
 
-  input.addEventListener('input', () => filter(input.value));
+  input.addEventListener('input', function () {
+    filter(input.value);
+  });
   if (btn) btn.addEventListener('click', open);
 
-  // Close on outside click
-  document.addEventListener('click', (e) => {
+  document.addEventListener('click', function (e) {
     if (!palette.classList.contains('hidden') && !palette.contains(e.target) && e.target !== btn) {
       close();
     }

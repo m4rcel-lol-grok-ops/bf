@@ -131,9 +131,9 @@
     const ctx = canvas.getContext('2d');
     const w = canvas.width = canvas.clientWidth || 600;
     const h = canvas.height = 80;
-    ctx.fillStyle = '#15181e';
+    ctx.fillStyle = '#f4f4f5';
     ctx.fillRect(0, 0, w, h);
-    ctx.strokeStyle = '#5b9cff';
+    ctx.strokeStyle = '#18181b';
     ctx.lineWidth = 1;
     ctx.beginPath();
     const step = Math.max(1, Math.floor(samples.length / w));

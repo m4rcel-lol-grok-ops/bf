@@ -11,24 +11,26 @@
 <body>
 <div id="app">
 <aside class="sidebar" id="sidebar">
-  <div class="logo"><a href="/">Byteforge</a></div>
+  <div class="logo">
+    <a href="/">
+      <span class="logo-mark">Bf</span>
+      <span>Byteforge</span>
+    </a>
+  </div>
   <nav>
-    <a href="/">Dashboard</a>
-    <a href="/converter">Converter</a>
-    <a href="/editor">Code Editor</a>
-    <a href="/svg" class="active">SVG Editor</a>
-    <a href="/pdf">PDF Editor</a>
-    <a href="/rss">RSS Reader</a>
-    <a href="/bytebeat">Bytebeat</a>
-    <a href="/settings">Settings</a>
+    <a href="/"><span class="nav-icon">⌂</span>Home</a>
+    <a href="/converter"><span class="nav-icon">⇄</span>Convert</a>
+    <a href="/editor"><span class="nav-icon">{ }</span>Code</a>
+    <a href="/svg" class="active"><span class="nav-icon">◇</span>SVG</a>
+    <a href="/pdf"><span class="nav-icon">▤</span>PDF</a>
+    <a href="/rss"><span class="nav-icon">◉</span>RSS</a>
+    <a href="/bytebeat"><span class="nav-icon">♪</span>Beat</a>
   </nav>
+  <div class="sidebar-footer">
+    <a href="/settings"><span class="nav-icon">⚙</span>Settings</a>
+  </div>
 </aside>
 <main class="content">
-  <header class="topbar">
-    <button class="menu-toggle" id="menu-toggle" aria-label="Menu">☰</button>
-    <h1>SVG Editor</h1>
-    <button class="cmd-btn" id="cmd-btn" title="Command palette (Ctrl+K)">⌘K</button>
-  </header>
   <div class="page">
     <div class="btn-row" style="margin-bottom:0.75rem">
       <button data-svg-mode="visual" class="primary">Visual</button>

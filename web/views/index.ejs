@@ -10,28 +10,35 @@
 <link rel="stylesheet" href="/static/css/components.css">
 </head>
 <body>
+<button class="menu-toggle" id="menu-toggle" aria-label="Menu">☰</button>
+<button class="cmd-btn" id="cmd-btn" title="Command palette (Ctrl+K)">⌘K</button>
 <div id="app">
 <aside class="sidebar" id="sidebar">
-  <div class="logo"><a href="/">Byteforge</a></div>
+  <div class="logo">
+    <a href="/">
+      <span class="logo-mark">Bf</span>
+      <span>Byteforge</span>
+    </a>
+  </div>
   <nav>
-    <a href="/" class="active">Dashboard</a>
-    <a href="/converter">Converter</a>
-    <a href="/editor">Code Editor</a>
-    <a href="/svg">SVG Editor</a>
-    <a href="/pdf">PDF Editor</a>
-    <a href="/rss">RSS Reader</a>
-    <a href="/bytebeat">Bytebeat</a>
-    <a href="/settings">Settings</a>
+    <a href="/" class="active"><span class="nav-icon">⌂</span>Home</a>
+    <a href="/converter"><span class="nav-icon">⇄</span>Convert</a>
+    <a href="/editor"><span class="nav-icon">{ }</span>Code</a>
+    <a href="/svg"><span class="nav-icon">◇</span>SVG</a>
+    <a href="/pdf"><span class="nav-icon">▤</span>PDF</a>
+    <a href="/rss"><span class="nav-icon">◉</span>RSS</a>
+    <a href="/bytebeat"><span class="nav-icon">♪</span>Beat</a>
   </nav>
+  <div class="sidebar-footer">
+    <a href="/settings"><span class="nav-icon">⚙</span>Settings</a>
+  </div>
 </aside>
 <main class="content">
-  <header class="topbar">
-    <button class="menu-toggle" id="menu-toggle" aria-label="Menu">☰</button>
-    <h1>Dashboard</h1>
-    <button class="cmd-btn" id="cmd-btn" title="Command palette (Ctrl+K)">⌘K</button>
-  </header>
   <div class="page">
-    <p style="color:var(--text-muted);margin-bottom:1.5rem">A universal toolkit for files, code, documents, feeds and sound.</p>
+    <div class="page-header">
+      <h1>Byteforge</h1>
+      <p class="hero-tagline">A universal toolkit for files, code, documents, feeds and sound.</p>
+    </div>
     <div class="grid grid-2">
       <a class="tool-card" href="/converter"><h3>File Converter</h3><p>Convert images, audio, video and text formats.</p></a>
       <a class="tool-card" href="/editor"><h3>Code Editor</h3><p>Browser-based editor with syntax support for many languages.</p></a>
